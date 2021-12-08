@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.BusConsumeStoreMapper">
+
+    <resultMap id="BusConsumeStoreMap" type="com.dubu.turnover.domain.entity.BusConsumeStore">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="projectId" column="project_id"/>
+        <result property="projectName" column="project_name"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="consumeName" column="consume_name"/>
+        <result property="consumeType" column="consume_type"/>
+        <result property="storeAddress" column="store_address"/>
+        <result property="isAccept" column="is_accept"/>
+        <result property="remarks" column="remarks"/>
+        <result property="processType" column="process_type"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    
+    <update id="updateApplyNumber" >
+		UPDATE bus_consume_store
+		SET update_time = now(6),
+			apply_number =apply_number+#{number}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateStoreNumber" >
+		UPDATE bus_consume_store
+		SET update_time = now(6),
+			number =number+#{number}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateOutStoreNumber" >
+		UPDATE bus_consume_store
+		SET update_time = now(6),
+			out_number =out_number+#{number}
+		WHERE id = #{id}
+	</update>
+</mapper>
+

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.BusAssetsMapper">
+
+    <resultMap id="BusAssetsMap" type="com.dubu.turnover.domain.entity.BusAssets">
+        <result property="id" column="id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="cardId" column="card_id"/>
+        <result property="assetsId" column="assets_id"/>
+        <result property="bookAssetsId" column="book_assets_id"/>
+        <result property="oriAssetsId" column="ori_assets_id"/>
+        <result property="financeDate" column="finance_date"/>
+        <result property="assetsName" column="assets_name"/>
+        <result property="worth" column="worth"/>
+        <result property="remarks" column="remarks"/>
+        <result property="useTime" column="use_time"/>
+        <result property="useStatus" column="use_status"/>
+        <result property="useUserId" column="use_user_id"/>
+        <result property="useUserName" column="use_user_name"/>
+        <result property="useDeptId" column="use_dept_id"/>
+        <result property="useDeptName" column="use_dept_name"/>
+        <result property="useWay" column="use_way"/>
+        <result property="oriDeposit" column="ori_deposit"/>
+        <result property="useCategory" column="use_category"/>
+        <result property="assetsCategory" column="assets_category"/>
+        <result property="assetsDetailCategory" column="assets_detail_category"/>
+        <result property="standards" column="standards"/>
+        <result property="depositAddress" column="deposit_address"/>
+        <result property="number" column="number"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    
+    	<update id="updateStatus" >
+		UPDATE bus_assets
+		SET update_time = now(6),
+		    update_by =#{updateBy},
+			status =#{status}
+		WHERE id = #{id}
+	</update>
+	
+    <update id="updateAssetsAudit" >
+		UPDATE bus_assets
+		set 
+           <if test="deptName != null and deptName != '' ">
+           	    use_dept_id =#{deptId},
+            	use_dept_name =#{deptName},
+           </if>
+           <if test="userName != null and userName != '' ">
+              user_id=#{userId},
+              user_name=#{userName} ,
+           </if>
+           <if test="useUserName != null and useUserName != '' ">
+              use_user_name=#{useUserName} ,
+           </if>
+           <if test="depositAddress != null and depositAddress != '' ">
+              deposit_address=#{depositAddress} ,
+           </if>
+            <if test="remarks != null and remarks != '' ">
+              remarks=#{remarks} ,
+           </if>
+		   update_time = now(6)			
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateTransfer" >
+		UPDATE bus_assets
+		SET update_time = now(6),
+		    update_by =#{updateBy},
+			is_transfer =#{isTransfer}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateApply" >
+		UPDATE bus_assets
+		SET update_time = now(6),
+		    net_worth =#{netWorth},
+			decrease =#{decrease},
+			expire_year =#{expireYear}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateAdress" >
+		UPDATE bus_assets
+		SET update_time = now(6),
+		    deposit_address =#{address}
+		WHERE id = #{id}
+	</update>
+</mapper>
+

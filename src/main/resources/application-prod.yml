@@ -1,0 +1,81 @@
+server:
+  port: 8889
+  compression:
+    enabled: true
+    minResponseSize: 100
+    mimeTypes: application/json
+spring:
+  main:
+    bannerMode: console
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/shangtu_backup?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: bksy1013
+    # 初始化大小，最小，最大
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    #useGlobalDataSourceStat: true
+  redis:
+    host: "127.0.0.1"
+    port: 28001
+    database: 13
+    #  password: redis!!
+    jedis:
+      max-actice: 8
+      max-wait: -1
+      max-idle: 5
+      min-idle: 0
+    timeout: 10000
+  jackson:
+    dateFormat: "yyyy-MM-dd HH:mm:ss"
+    timeZone: "Asia/Shanghai"
+    deserialization:
+      failOnUnknownProperties: false
+    serialization:
+      indentOutput: false
+      writeNullMapValues: false
+      failOnEmptyBeans: false
+    serializationInclusion: false
+
+config:
+  aliyun:
+    oss:
+      endpoint: 1
+      bucketName: 2
+      accessKeyId: 3
+      accessKeySecret: 4
+      fileUrl: 5
+  sys:
+    defaultAppId: wxe7262b1
+    defaultSecret: c6ce42804a5f8bc7
+    wxToken: 
+    fileUrl: D://zcgl//file
+    showUrl: http://10.1.66.227:90/
+    smsUrl:
+    backUrl:
+    host: ps.libnet.sh.cn
+    sendMail: bksy4@libnet.sh.cn
+    userName: bksy4@libnet.sh.cn
+    password: cnbksy
+    port: 25

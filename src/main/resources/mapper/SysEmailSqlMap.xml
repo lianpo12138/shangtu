@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.TsysEmailMapper">
+
+    <resultMap id="TsysEmailMap" type="com.dubu.turnover.domain.entity.SysEmail">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="isCheck" column="is_check"/>
+        <result property="post" column="post"/>
+        <result property="sendEmail" column="send_email"/>
+        <result property="state" column="state"/>
+        <result property="stmpPwd" column="stmp_pwd"/>
+        <result property="stmpServer" column="stmp_server"/>
+        <result property="stmpUser" column="stmp_user"/>
+    </resultMap>
+</mapper>
+

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.BusTaskMapper">
+
+    <resultMap id="BusTaskMap" type="com.dubu.turnover.domain.entity.BusTask">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="taskType" column="task_type"/>
+        <result property="taskName" column="task_name"/>
+        <result property="taskStepStatus" column="task_step_status"/>
+        <result property="taskStepName" column="task_step_name"/>
+        <result property="status" column="status"/>
+        <result property="applyUserId" column="apply_user_id"/>
+        <result property="applyUserName" column="apply_user_name"/>
+        <result property="applyDeptId" column="apply_dept_id"/>
+        <result property="applyDeptName" column="apply_dept_name"/>
+        <result property="auditRoleId" column="audit_role_id"/>
+        <result property="auditRoleName" column="audit_role_name"/>
+        <result property="auditDeptId" column="audit_dept_id"/>
+        <result property="auditDeptName" column="audit_dept_name"/>
+        <result property="processId" column="process_id"/>
+        <result property="nextProcessId" column="next_process_id"/>
+         <result property="categoryId" column="category_id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    
+    		
+	<select id="selectYesTaskTypePage" resultMap="BusTaskMap">
+		SELECT   id,type,task_type,task_name,task_step_status,task_step_name,
+          status,apply_user_id,apply_user_name,apply_dept_id,apply_dept_name,audit_role_id,
+         audit_role_name,audit_dept_id,audit_dept_name,current_process_id,next_process_id,create_by,
+          create_time,update_by,update_time
+		FROM bus_task WHERE id in (select task_id from bus_task_audit where audit_user_id =#{userId})
+		<if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="startDate != null">
+            and create_time <![CDATA[>=]]> #{startDate}
+        </if>
+        <if test="endDate != null">
+            and create_time <![CDATA[<=]]> #{endDate}
+        </if>
+        order by create_time desc
+	</select>
+	
+	<select id="selectNoTaskTypePage" resultMap="BusTaskMap">
+		SELECT   id,type,task_type,task_name,task_step_status,task_step_name,category_id,
+          status,apply_user_id,apply_user_name,apply_dept_id,apply_dept_name,audit_role_id,
+         audit_role_name,audit_dept_id,audit_dept_name,current_process_id,next_process_id,create_by,
+          create_time,update_by,update_time
+		FROM bus_task WHERE 
+                (( status=0  and (audit_role_id  in (${auditRoleIds}) or audit_user_id  = #{userId}))
+               or (id  in (select task_id from bus_task_sign where status=0 and audit_user_id =#{userId} 
+               )) )
+             
+		<if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="startDate != null">
+            and create_time <![CDATA[>=]]> #{startDate}
+        </if>
+        <if test="endDate != null">
+            and create_time <![CDATA[<=]]> #{endDate}
+        </if>
+        order by create_time desc
+	</select>
+	
+	
+	<select id="selectYesSignTypePage" resultMap="BusTaskMap">
+		SELECT   id,type,task_type,task_name,task_step_status,task_step_name,
+          status,apply_user_id,apply_user_name,apply_dept_id,apply_dept_name,audit_role_id,
+         audit_role_name,audit_dept_id,audit_dept_name,current_process_id,next_process_id,create_by,
+          create_time,update_by,update_time
+		FROM bus_task WHERE 
+            id  in (select task_id from bus_task_sign where status=1 and  audit_user_id =#{userId})
+		<if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="startDate != null">
+            and create_time <![CDATA[>=]]> #{startDate}
+        </if>
+        <if test="endDate != null">
+            and create_time <![CDATA[<=]]> #{endDate}
+        </if>
+        order by create_time desc
+	</select>
+	
+	<select id="selectSendTypePage" resultMap="BusTaskMap">
+		SELECT   id,type,task_type,task_name,task_step_status,task_step_name,
+          status,apply_user_id,apply_user_name,apply_dept_id,apply_dept_name,audit_role_id,
+         audit_role_name,audit_dept_id,audit_dept_name,current_process_id,next_process_id,create_by,
+          create_time,update_by,update_time
+		FROM bus_task WHERE 
+             apply_user_id =#{userId}
+		<if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="startDate != null">
+            and create_time <![CDATA[>=]]> #{startDate}
+        </if>
+        <if test="endDate != null">
+            and create_time <![CDATA[<=]]> #{endDate}
+        </if>
+        order by create_time desc
+	</select>
+	
+	
+	<update id="updateStatus" >
+		UPDATE bus_task
+		SET update_time = now(6),
+			status= #{status}
+		WHERE id = #{taskId}
+	</update>
+	
+	<update id="updateRole" >
+		UPDATE bus_task
+		SET update_time = now(6),
+			audit_role_id =null
+		WHERE id = #{taskId}
+	</update>
+	
+	<update id="updateUser" >
+		UPDATE bus_task
+		SET update_time = now(6),
+			audit_user_id =null
+		WHERE id = #{taskId}
+	</update>
+	
+	<select id="selectNoTaskCount" resultType="Integer">
+		SELECT   count(1)
+		FROM bus_task WHERE status=0
+             and ( audit_role_id  in (${auditRoleIds}) or audit_user_id  = #{userId}
+               )
+           and id=  #{taskId}
+	</select>
+	
+</mapper>
+

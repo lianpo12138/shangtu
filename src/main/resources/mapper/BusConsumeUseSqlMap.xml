@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.BusConsumeUseMapper">
+
+    <resultMap id="BusConsumeUseMap" type="com.dubu.turnover.domain.entity.BusConsumeUse">
+        <result property="id" column="id"/>
+        <result property="consumeNo" column="consume_no"/>
+        <result property="consumeName" column="consume_name"/>
+        <result property="consumeCategoryId" column="consume_category_id"/>
+        <result property="consumeType" column="consume_type"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="useUserId" column="use_user_id"/>
+        <result property="useUserName" column="use_user_name"/>
+        <result property="useDeptId" column="use_dept_id"/>
+        <result property="useDeptName" column="use_dept_name"/>
+        <result property="storeAddress" column="store_address"/>
+        <result property="phone" column="phone"/>
+        <result property="projectName" column="project_name"/>
+        <result property="markMessage" column="mark_message"/>
+        <result property="applyTime" column="apply_time"/>
+        <result property="inStoreTime" column="in_store_time"/>
+        <result property="number" column="number"/>
+        <result property="oriConsumeName" column="ori_consume_name"/>
+        <result property="purpose" column="purpose"/>
+        <result property="consumeModel" column="consume_model"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    
+    <select id="selectConsumeUsePage" resultMap="BusConsumeUseMap">
+		SELECT     a.id,a.consume_no,a.consume_name,a.consume_category_id,a.consume_type,a.user_id,
+                   a.user_name,a.dept_id,a.dept_name,a.use_user_id,a.use_user_name,a.use_dept_id,a.use_dept_name,a.store_address,
+                   a.phone,a.project_name,a.mark_message,a.apply_time,a.in_store_time,a.number,a.ori_consume_name,a.purpose,
+                   consume_model,
+                   a.create_by,a.create_time,a.update_by,a.update_time 
+		FROM bus_consume_use a WHERE  1=1 
+		<if test="consumeNo != null">
+            and a.consume_no = #{consumeNo}
+        </if>
+        <if test="consumeName != null">
+            and a.consume_name like  '%#{consumeName}%'
+        </if>
+        order by a.create_time desc
+	</select>
+	
+	    
+  <update id="updateStatus" >
+		UPDATE bus_consume_use
+		SET update_time = now(6),
+			status =#{status}
+		WHERE id = #{id}
+	</update>
+	
+	  <update id="updateCheckUserName" >
+		UPDATE bus_consume_use
+		SET update_time = now(6),
+			check_user_name =#{checkUserName}
+		WHERE id = #{id}
+	</update>
+	
+	  <update id="updateAuditUserName" >
+		UPDATE bus_consume_use
+		SET update_time = now(6),
+			audit_user_name =#{auditUserName}
+		WHERE id = #{id}
+	</update>
+</mapper>
+

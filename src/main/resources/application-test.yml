@@ -1,0 +1,82 @@
+server:
+  port: 8889
+  compression:
+    enabled: true
+    minResponseSize: 100
+    mimeTypes: application/json
+spring:
+  main:
+    bannerMode: console
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shangtu?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+    username: root
+    password: root
+
+    # 鍒濆鍖栧ぇ灏忥紝鏈�灏忥紝鏈�澶�
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    # 閰嶇疆鑾峰彇杩炴帴绛夊緟瓒呮椂鐨勬椂闂�
+    maxWait: 60000
+    # 閰嶇疆闂撮殧澶氫箙鎵嶈繘琛屼竴娆℃娴嬶紝妫�娴嬮渶瑕佸叧闂殑绌洪棽杩炴帴锛屽崟浣嶆槸姣
+    timeBetweenEvictionRunsMillis: 60000
+    # 閰嶇疆涓�涓繛鎺ュ湪姹犱腑鏈�灏忕敓瀛樼殑鏃堕棿锛屽崟浣嶆槸姣
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 鎵撳紑PSCache锛屽苟涓旀寚瀹氭瘡涓繛鎺ヤ笂PSCache鐨勫ぇ灏�
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 閰嶇疆鐩戞帶缁熻鎷︽埅鐨刦ilters锛屽幓鎺夊悗鐩戞帶鐣岄潰sql鏃犳硶缁熻锛�'wall'鐢ㄤ簬闃茬伀澧�
+    filters: stat,wall,slf4j
+    # 閫氳繃connectProperties灞炴�ф潵鎵撳紑mergeSql鍔熻兘锛涙參SQL璁板綍
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 鍚堝苟澶氫釜DruidDataSource鐨勭洃鎺ф暟鎹�
+    #useGlobalDataSourceStat: true
+  redis:
+    host: "127.0.0.1"
+    port: 28001
+    database: 0
+#    password:
+    jedis:
+      max-actice: 8
+      max-wait: -1
+      max-idle: 5
+      min-idle: 0
+    timeout: 10000
+  jackson:
+    dateFormat: "yyyy-MM-dd HH:mm:ss"
+    timeZone: "Asia/Shanghai"
+    deserialization:
+      failOnUnknownProperties: false
+    serialization:
+      indentOutput: false
+      writeNullMapValues: false
+      failOnEmptyBeans: false
+    serializationInclusion: false
+
+config:
+  aliyun:
+    oss:
+      endpoint: 1
+      bucketName: 2 
+      accessKeyId: 3
+      accessKeySecret: 4 
+      fileUrl: 5 
+  sys:
+    defaultAppId: wxe7262b1
+    defaultSecret: c6ce42804a5f8bc7
+    wxToken: 
+    fileUrl: F://zichan-file
+    showUrl: http://localhost:90/img/
+    smsUrl: 
+    backUrl: 
+    host: smtp.rushmail.cn
+    sendMail: iscommunity@email.ipsos.com.cn
+    userName: iscommunity@email.ipsos.com.cn
+    password: Ipsos22!@#
+    port: 2525

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script>
+      var _vds = _vds || [];
+      window._vds = _vds;
+      (function () {
+        _vds.push(['setAccountId', '8add9b5e848122aa']);
+        (function () {
+          var vds = document.createElement('script');
+          vds.type = 'text/javascript';
+          vds.async = true;
+          vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(vds, s);
+        })();
+      })();
+    </script>
+    <link rel="stylesheet" type="text/css" href="${h5url}/youpin/css/common.css">
+    <link rel="stylesheet" type="text/css" href="${h5url}/youpin/css/order/orderConfirm.css">
+    <!--[if lte IE 8]>
+        <script src="${h5url}/youpin/js/libs/es5-shim.min.js"></script>
+        <script src="${h5url}/youpin/js/libs/es5-sham.min.js"></script>
+        <script src="${h5url}/youpin/js/libs/json3.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="order-confirm">
+        <div class="order-confirm-top">
+            <div class="top-inline">
+                <div class="inline-left">
+                    合同号：
+                </div>
+                <div class="inline-right">
+                    <span id="contractId">${contracts.id?c}</span>
+                </div>
+            </div>
+            <div class="top-inline">
+                <div class="inline-left">
+                    数量：
+                </div>
+                <div class="inline-right">
+                    <span>${auctions?size}</span>
+                </div>
+            </div>
+            <div class="top-inline">
+                <div class="inline-left">
+                    委托人：
+                </div>
+                <div class="inline-right">
+                    <span>${contracts.userName}</span>（ID：<span>${contracts.userId?c}</span>）
+                </div>
+            </div>
+        </div>
+        <div class="order-confirm-items">
+        	<#list auctions as p>
+	            <div class="order-confirm-item">
+	                <div class="item-img">
+	                    <img src="${p.picUrl}!400x400">
+	                </div>
+	                <div class="item-right">
+	                    <div class="right-name">
+	                        <span>${p.auctionName}</span>
+	                    </div>
+	                    <div class="right-no">
+	                        <span>${p.auctionNo?c}</span>
+	                    </div>
+	                    <div class="right-inline">
+	                        <div class="inline-left">
+	                          		  制作费： 
+	                        </div>
+	                        <div class="inline-right">
+	                            ¥ <span>${p.processFee!0.00}</span>
+	                        </div>
+	                    </div>
+	                    <div class="right-inline">
+	                        <div class="inline-left">
+	                          	  是否评级： 
+	                        </div>
+	                        <div class="inline-right">
+	                            <span><#if p.isGradeFee==1>是<#else>不</#if></span>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </#list>
+        </div>
+        <div class="order-confirm-white"></div>
+        <div class="order-confirm-toTop" style="display: none;">
+            <img src="${h5url}/youpin/img/toTop.png">
+        </div>
+        <div class="order-confirm-bottom">
+            <div id="kefuBtn" class="bottom-left">
+                <span class="iconfont_app icon-app-customService"></span>信息有误，联系客服
+            </div>
+            <div id="confirmBtn" class="bottom-right">
+                确认无误
+            </div>
+        </div>
+    </div>
+    <script>
+
+    window.baseUrl = "${h5url}/youpin"
+    </script>
+    <script id="xiaonengjs" src="//visitor.ntalker.com/visitor/js/xiaoneng.js?siteid=kf_20165"></script>
+    <script src="${h5url}/youpin/js/libs/require.js" data-main="${h5url}/youpin/js/order/orderConfirm"></script>
+</body>
+</html>

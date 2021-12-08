@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.UserAccountsMapper">
+
+   
+    <resultMap id="UserAccountsMap" type="com.dubu.turnover.domain.entity.UserAccounts">
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+		<result property="nikeName" column="nike_name"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+        <result property="isCompany" column="is_company"/>
+        <result property="totalBalance" column="total_balance"/>
+        <result property="freezeBalance" column="freeze_balance"/>
+        <result property="password" column="password"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+		<result property="remarks" column="remarks"/>
+		<result property="isAgree" column="is_agree"/>
+		<result property="openId" column="open_id"/>
+		<result property="unionId" column="union_id"/>
+		<result property="channelId" column="channel_id"/>
+		<result property="isCompany" column="is_company"/>
+    </resultMap>
+    
+    <sql id="AccountColumns">
+		user_id,
+		user_name,
+		nike_name,
+		phone,
+		email,
+		password,
+		ifnull(total_balance, 0) 'total_balance',
+		ifnull(freeze_balance, 0) 'freeze_balance',
+		password,
+		status,<!-- 1:正常 2:冻结 3:注销 -->
+		create_by,
+		create_time,
+		update_by,
+		update_time,
+		remarks,
+		is_agree,
+		open_id,
+		union_id,
+		channel_id,
+		is_company
+	</sql>
+    <select id="selectByUserId" resultMap="UserAccountsMap">
+		SELECT
+		<include refid="AccountColumns"/>
+		FROM `user_accounts` WHERE `USER_ID` = #{userId}
+	</select>
+	
+	<select id="selectByUsername" resultMap="UserAccountsMap">
+		SELECT
+		<include refid="AccountColumns"/>
+		FROM `user_accounts` WHERE user_name = #{username}
+	</select>
+	
+	<select id="selectByUserPhone" resultMap="UserAccountsMap">
+		SELECT
+		<include refid="AccountColumns"/>
+		FROM `user_accounts` WHERE phone = #{phone}
+	</select>
+		
+	<select id="selectByUserEmail" resultMap="UserAccountsMap">
+		SELECT
+		<include refid="AccountColumns"/>
+		FROM `user_accounts` WHERE email = #{email}
+	</select>
+	
+	<update id="updateBalance" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			total_balance    = ifnull(total_balance,0) + #{balance}
+		WHERE ID = #{id}
+	</update>
+	
+	<update id="freezeBalance" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			freeze_balance = ifnull(freeze_balance,0)+#{balance}
+		WHERE ID = #{id}
+	</update>
+	
+	<update id="unfreezeBalance" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			freeze_balance = ifnull(freeze_balance,0)-#{balance}
+		WHERE user_id = #{id}
+	</update>
+	
+	<update id="freezeAccount" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			status =#{status}
+		WHERE user_id = #{id}
+	</update>
+	
+	<update id="updatePassWord" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			password =#{password}
+		WHERE user_id = #{id}
+	</update>
+	
+	
+	<update id="updateMobile" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			mobile = #{mobile}
+		WHERE user_id = #{id}
+	</update>
+
+	<update id="userRemarks">
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			remarks = #{remarks}
+		WHERE user_id = #{id}
+	</update>
+	
+	<update id="updateOpenId" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			open_id = #{openId},
+			nike_name= #{nikeName}
+		WHERE user_id = #{id}
+	</update>
+	
+	<update id="updateUserName" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			user_name= #{username}
+		WHERE user_id = #{id}
+	</update>
+	
+	<update id="updateHeadImg" >
+		UPDATE `user_accounts`
+		SET update_time = now(6),
+			head_img= #{HeadImg}
+		WHERE user_id = #{id}
+	</update>
+	
+</mapper>
+

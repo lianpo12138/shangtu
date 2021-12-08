@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.BusConsumeLogMapper">
+
+    <resultMap id="BusConsumeLogMap" type="com.dubu.turnover.domain.entity.BusConsumeLog">
+        <result property="id" column="id"/>
+        <result property="optUserId" column="opt_user_id"/>
+        <result property="optUserName" column="opt_user_name"/>
+        <result property="optDeptId" column="opt_dept_id"/>
+        <result property="optDeptName" column="opt_dept_name"/>
+        <result property="auctionType" column="auction_type"/>
+        <result property="auctionName" column="auction_name"/>
+        <result property="remarks" column="remarks"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+</mapper>
+

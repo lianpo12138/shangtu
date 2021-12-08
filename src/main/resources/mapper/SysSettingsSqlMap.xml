@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.SysSettingsMapper">
+
+    <resultMap id="SysSettingsMap" type="com.dubu.turnover.domain.entity.SysSettings">
+        <result property="id" column="id"/>
+        <result property="switchIndex" column="switch_index"/>
+        <result property="switchQuotation" column="switch_quotation"/>
+        <result property="switchAttention" column="switch_attention"/>
+        <result property="switchQtAttention" column="switch_qt_attention"/>
+        <result property="switchWaxing" column="switch_waxing"/>
+        <result property="swithDgWaxing" column="swith_dg_waxing"/>
+        <result property="iosVersion" column="ios_version"/>
+        <result property="androidVersion" column="android_version"/>
+        <result property="iosUpdate" column="ios_update"/>
+        <result property="androidUpdate" column="android_update"/>
+        <result property="iosDesc" column="ios_desc"/>
+        <result property="androidDesc" column="android_desc"/>
+        <result property="iosUpdateUrl" column="ios_update_url"/>
+    </resultMap>
+</mapper>
+

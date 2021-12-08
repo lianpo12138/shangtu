@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubu.turnover.mapper.BusTaskProcessMapper">
+
+    <resultMap id="BusTaskProcessMap" type="com.dubu.turnover.domain.entity.BusTaskProcess">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="processName" column="process_name"/>
+        <result property="currentRoleIds" column="current_role_ids"/>
+        <result property="currentDeptIds" column="current_dept_ids"/>
+        <result property="nextRoleIds" column="next_role_ids"/>
+        <result property="nextDeptIds" column="next_dept_ids"/>
+        <result property="nextProcessId" column="next_process_id"/>
+        <result property="sendRoleIds" column="send_role_ids"/>
+        <result property="sendDeptIds" column="send_dept_ids"/>
+        <result property="remarks" column="remarks"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    
+	
+	 <select id="selectFirstTask" resultMap="BusTaskProcessMap">
+		SELECT
+	        id,type,process_name,current_role_ids,current_dept_ids,next_role_ids,
+             next_dept_ids,next_process_id,send_role_ids,send_dept_ids,create_by,create_time,update_by,update_time
+		FROM bus_task_process 
+		 WHERE  type=#{type}  
+		 order by id asc limit 1
+	</select>
+</mapper>
+
